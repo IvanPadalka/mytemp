@@ -1,16 +1,23 @@
 {% extends "base.html" %}
-{% block title%}{{post.title}}{% endblock %}
+
+{% block title %}
+    Post
+{% endblock %}
 
 {% block content %}
-<br>
-<div class="content-section">
-    <div class="media">
-        <div class="media-body">
-            <h3 class="account-heading">{{ post.author.username }}</h3>
-            <p class="text-secondary">{{ post.timestamp }}</p>
+<div class="column is-4 is-offset-4">
+<div class="box">
+        <div class="text-center">
+                <h1 style="font-size: 25px;">{{post.title}}</h1>
+                <h5 style="text-align: left;">{{post.body}}</h5><br>
+                <inline><p style="text-align: left;">Post created by: <strong>{{ post.author.username }}</strong></p></inline> <br>
+                <inline><p style="text-align: left;"> Create date: {{post.timestamp}}</p></inline><br>
+                <inline><p style="text-align: left;">Update date: {{post.update_time}}</p></inline><br>
+                 {% if current_user.username == post.author.username %}
+                    <p><a class="btn btn-primary" href="{{url_for('posts.update_post', post_id=post.id)}}" style="color: white;">Edit</a>
+                    <a class="btn btn-danger" href="{{url_for('posts.delete_post', post_id=post.id)}}" style="color: white;">Delete</a></p>
+                 {% endif %}
         </div>
-    </div>
 </div>
-<p class="h3">{{ post.title }}</p>
-<p>{{ post.body }}</p>
+</div>
 {% endblock %}

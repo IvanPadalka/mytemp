@@ -1,17 +1,33 @@
 {% extends "base.html" %}
-{% from "_render_field.html" import render_field %}
 
-{% block title %}Create New Post{% endblock %}
 {% block content %}
-    <br>
-    <form method="POST" action="{{url_for('posts.new_post', next=request.args.get('next'))}}">
-        {{ form.hidden_tag() }}
-        <p class="h4">New Post</p>
-        <hr>
-        <div class="md-form form-group w-50">
+<div class="column is-4 is-offset-4">
+    <h3 class="title">New post</h3>
+<div class="box">
+    <div class="text-center">
+        {% for cat, msg in get_flashed_messages(True) %}
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-{{cat}}">{{msg}}</li>
+        </ul>
+        {%endfor %}
+        {% from "_render_field.html" import render_field %}
+        <form action="{{url_for('posts.new_post')}}" method="post" novalidate>
+            {{ form.hidden_tag() }}
             {{ render_field(form.title) }}
             {{ render_field(form.body) }}
-            {{ form.submit(class_="btn btn-primary") }}
-        </div>  
-    </form>
+            <p>{{ form.submit(class='button is-block is-info is-large is-fullwidth') }}</p>
+        </form>
+
+    </div>
+</div>
+</div>
 {% endblock %}
+
+
+
+
+
+
+
+
+
